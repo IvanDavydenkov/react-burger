@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {RootLayout} from "./components/root-layout/root-layout";
+import {HomePage} from "./components/pages/home";
+import {Route, Routes} from "react-router-dom";
+import {OrderPage} from "./components/pages/orders";
+import {ProfilePage} from "./components/pages/profile";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+	return (
+		<>
+			<Routes>
+				<Route path="/" element={<RootLayout><HomePage/></RootLayout>}/>
+				<Route path="/order" element={<RootLayout><OrderPage/></RootLayout>}/>
+				<Route path="/profile" element={<RootLayout><ProfilePage/></RootLayout>}/>
+				<Route path="*" element={<RootLayout><h1>404 Page Not Found</h1></RootLayout>}/>
+			</Routes>
+
+		</>
+
+	);
 }
 
-export default App;
+
+
+
