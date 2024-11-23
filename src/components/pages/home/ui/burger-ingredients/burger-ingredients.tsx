@@ -61,7 +61,7 @@ export const BurgerIngredients = (props: { items: Ingredient[] }) => {
 					<h2 className={'mb-6 text text_type_main-medium'}>{activeTab.label}</h2>
 					<ul className={clsx(cl.list, 'pl-4 pr-2 mb-10')}>
 						{sortedItems.map(item => {
-							return <BurgerIngredient {...item} onClick={handleSetActiveIngredient} />
+							return <BurgerIngredient ingredient={item} onClick={handleSetActiveIngredient} key={item._id} />
 						})}
 					</ul>
 				</section>

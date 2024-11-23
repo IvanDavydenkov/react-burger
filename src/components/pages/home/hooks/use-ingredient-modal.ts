@@ -6,8 +6,7 @@ export const useIngredientModal = (items: Ingredient[]) => {
 	const [activeIngredient, setActiveIngredient] = useState<Ingredient>(items[0])
 
 	const { isOpen, handleOpen, handleClose } = useModal()
-	const handleSetActiveIngredient = (id: string) => {
-		const item = items.find(item => item._id === id)
+	const handleSetActiveIngredient = (item: Ingredient) => {
 		if (!item) return
 		setActiveIngredient(item)
 		handleOpen()

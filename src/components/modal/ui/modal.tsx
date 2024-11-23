@@ -11,12 +11,9 @@ export interface ModalProps {
 }
 
 export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-	if (!isOpen) {
-		return null
-	}
 	return (
 		<Portal>
-			<div className={cl.overlay} onClick={onClose}>
+			<div className={clsx(cl.overlay, { [cl.overlay_open]: isOpen })} onClick={onClose}>
 				<div className={clsx(cl.content, 'pt-10 pb-15 pl-10 pr-10')} onClick={e => e.stopPropagation()}>
 					<CloseIcon type="primary" className={cl.close} onClick={onClose} />
 					{children}

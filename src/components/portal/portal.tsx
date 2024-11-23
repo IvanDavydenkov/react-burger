@@ -6,5 +6,5 @@ export interface PortalProps {
 }
 
 export const Portal = ({ children }: PortalProps) => {
-	return <div>{createPortal(children, document.body)}</div>
+	return <div>{createPortal(children, document.querySelector('#modals') ?? document.body)}</div>
 }
