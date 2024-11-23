@@ -1,7 +1,3 @@
 export const OrderPage = () => {
-	return (
-		<div>
-
-		</div>
-	);
-};
+	return <div></div>
+}

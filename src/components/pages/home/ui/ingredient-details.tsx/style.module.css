@@ -1,0 +1,30 @@
+.root {
+
+
+    .img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 480px;
+        height: 240px;
+        object-fit: contain;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .list {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+
+        li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+    }
+}
