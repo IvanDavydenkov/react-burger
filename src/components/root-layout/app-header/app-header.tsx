@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom'
 export const AppHeader = () => {
 	const location = useLocation()
 	const currentPath = location.pathname
+
 	return (
 		<header className={cl.header}>
 			<nav className={cl.nav}>

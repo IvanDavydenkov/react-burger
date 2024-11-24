@@ -4,7 +4,6 @@
     flex-direction: column;
     gap: 16px;
     max-height: 60vh;
-    overflow-y: scroll;
 
 
     .item {
@@ -29,4 +28,13 @@
         }
 
     }
+}
+
+
+.body {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    height: calc(60vh - 80px - 80px - 16px - 16px);
+    overflow-y: scroll;
 }

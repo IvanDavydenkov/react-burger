@@ -4,7 +4,6 @@ import clsx from 'clsx'
 
 export const IngredientDetails = (props: Ingredient) => {
 	const { name, fat, calories, carbohydrates, proteins, image_large } = props
-	console.log(props)
 	const specs = [
 		{ value: calories, label: 'Калории,ккал', id: '001' },
 		{ value: proteins, label: 'Белки, г', id: '002' },
