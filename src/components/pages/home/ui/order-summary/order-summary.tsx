@@ -8,7 +8,7 @@ export const OrderSummary = (props: { data: Ingredient[] }) => {
 	const indexLast = data.length - 1
 	return (
 		<ul className={clsx('mt-25 mb-10', cl.summary)}>
-			<li className={cl.item} key={data[0]._id}>
+			<li className={cl.item}>
 				<ConstructorElement
 					type={'top'}
 					price={data[0].price}
@@ -28,7 +28,7 @@ export const OrderSummary = (props: { data: Ingredient[] }) => {
 				})}
 			</div>
 
-			<li className={cl.item} key={data[0]._id}>
+			<li className={cl.item}>
 				<ConstructorElement
 					type={'bottom'}
 					price={data[0].price}
