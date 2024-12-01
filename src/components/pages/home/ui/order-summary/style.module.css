@@ -1,0 +1,40 @@
+.summary {
+    margin-top: 115px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 60vh;
+
+
+    .item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-left: 32px;
+
+        .dragIcon {
+            position: absolute;
+            left: 0;
+        }
+
+        .el {
+
+            span {
+
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+
+    }
+}
+
+
+.body {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    height: calc(60vh - 80px - 80px - 16px - 16px);
+    overflow-y: scroll;
+}
