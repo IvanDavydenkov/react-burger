@@ -2,17 +2,12 @@ import cl from './style.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import clsx from 'clsx'
 import { useState } from 'react'
-import { Ingredient } from '../../data'
 import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
 import { Modal } from '../../../../modal'
 import { IngredientDetails } from '../ingredient-details.tsx/ingredient-details'
 import { useIngredientModal } from '../../hooks/use-ingredient-modal'
-
-export const enum ProductType {
-	Bun = 'bun',
-	Sauce = 'sauce',
-	Main = 'main'
-}
+import { useAppSelector } from '../../../../../services'
+import { ProductType } from '../../../../../services/types/server-response.ts'
 
 interface tabsItem {
 	id: number
@@ -37,11 +32,12 @@ export const tabsData: tabsItem[] = [
 		label: 'Начинки'
 	}
 ]
-export const BurgerIngredients = (props: { items: Ingredient[] }) => {
-	const { items } = props
+export const BurgerIngredients = () => {
+	const ingredients = useAppSelector(state => state.ingredients.items)
+
 	const [activeTab, setActiveTab] = useState<tabsItem>(tabsData[0])
-	const sortedItems = items.filter(item => item.type === activeTab.value)
-	const { activeIngredient, handleSetActiveIngredient, handleClose, isOpen } = useIngredientModal(items)
+	const sortedItems = ingredients.filter(item => item.type === activeTab.value)
+	const { handleSetActiveIngredient, handleClose, isOpen } = useIngredientModal()
 	return (
 		<div className={cl.root}>
 			<div className={clsx(cl.tabs, 'mb-10')}>
@@ -67,7 +63,7 @@ export const BurgerIngredients = (props: { items: Ingredient[] }) => {
 				</section>
 			</div>
 			<Modal isOpen={isOpen} onClose={handleClose}>
-				<IngredientDetails {...activeIngredient} />
+				<IngredientDetails />
 			</Modal>
 		</div>
 	)

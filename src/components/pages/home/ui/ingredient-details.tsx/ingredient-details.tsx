@@ -1,20 +1,30 @@
 import cl from './style.module.css'
-import { Ingredient } from '../../data'
 import clsx from 'clsx'
+import { useEffect } from 'react'
+import { useActions } from '../../../../../services/rootActions.ts'
+import { useAppSelector } from '../../../../../services'
 
-export const IngredientDetails = (props: Ingredient) => {
-	const { name, fat, calories, carbohydrates, proteins, image_large } = props
+export const IngredientDetails = () => {
+	const preview = useAppSelector(state => state.preview.preview)
 	const specs = [
-		{ value: calories, label: 'Калории,ккал', id: '001' },
-		{ value: proteins, label: 'Белки, г', id: '002' },
-		{ value: fat, label: 'Жиры, г', id: '003' },
-		{ value: carbohydrates, label: 'Углеводы, г', id: '004' }
+		{ value: preview?.calories, label: 'Калории,ккал', id: '001' },
+		{ value: preview?.proteins, label: 'Белки, г', id: '002' },
+		{ value: preview?.fat, label: 'Жиры, г', id: '003' },
+		{ value: preview?.carbohydrates, label: 'Углеводы, г', id: '004' }
 	]
+	const actions = useActions()
+
+	useEffect(() => {
+		return () => {
+			// Удаляю стейт при размонтировании
+			actions.resetPreview()
+		}
+	}, [])
 	return (
 		<div className={cl.root}>
 			<p className={clsx('text text_type_main-large')}>Детали ингредиента</p>
-			<img src={image_large} alt={name} className={clsx('mb-4', cl.img)} />
-			<h2 className={clsx('text text_type_main-medium mb-8', cl.title)}>{name}</h2>
+			<img src={preview?.image_large} alt={preview?.name} className={clsx('mb-4', cl.img)} />
+			<h2 className={clsx('text text_type_main-medium mb-8', cl.title)}>{preview?.name}</h2>
 			<ul className={cl.list}>
 				{specs.map(({ value, label, id }) => (
 					<li key={id}>
