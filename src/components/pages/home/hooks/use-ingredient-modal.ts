@@ -1,21 +1,19 @@
-import { Ingredient } from '../data'
 import { useModal } from '../../../modal'
-import { useState } from 'react'
+import { Ingredient } from '../../../../services/types/server-response.ts'
+import { useActions } from '../../../../services/rootActions.ts'
 
-export const useIngredientModal = (items: Ingredient[]) => {
-	const [activeIngredient, setActiveIngredient] = useState<Ingredient>(items[0])
-
+export const useIngredientModal = () => {
+	const actions = useActions()
 	const { isOpen, handleOpen, handleClose } = useModal()
 	const handleSetActiveIngredient = (item: Ingredient) => {
 		if (!item) return
-		setActiveIngredient(item)
+		actions.setPreview(item)
 		handleOpen()
 	}
 	return {
 		isOpen,
 		handleClose,
 		handleOpen,
-		handleSetActiveIngredient,
-		activeIngredient
+		handleSetActiveIngredient
 	}
 }
