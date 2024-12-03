@@ -8,7 +8,6 @@
     width: 272px;
     min-height: 208px;
 
-
     .img {
         /*mix-blend-mode: multiply;*/
     }
@@ -27,4 +26,9 @@
         top: 0;
         right: 0;
     }
+}
+
+.item_ondrag {
+    opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
 }
