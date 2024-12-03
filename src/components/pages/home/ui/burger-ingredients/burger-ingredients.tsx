@@ -1,13 +1,13 @@
 import cl from './style.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import clsx from 'clsx'
-import { useState } from 'react'
-import { BurgerIngredient } from '../burger-ingredient/burger-ingredient'
+import { useEffect, useRef, useState } from 'react'
 import { Modal } from '../../../../modal'
 import { IngredientDetails } from '../ingredient-details.tsx/ingredient-details'
 import { useIngredientModal } from '../../hooks/use-ingredient-modal'
 import { useAppSelector } from '../../../../../services'
 import { ProductType } from '../../../../../services/types/server-response.ts'
+import { BurgerIngredientsSection } from '../burger-ingredients-section/burger-ingredients-section.tsx'
 
 interface tabsItem {
 	id: number
@@ -36,15 +36,71 @@ export const BurgerIngredients = () => {
 	const ingredients = useAppSelector(state => state.ingredients.items)
 
 	const [activeTab, setActiveTab] = useState<tabsItem>(tabsData[0])
-	const sortedItems = ingredients.filter(item => item.type === activeTab.value)
 	const { handleSetActiveIngredient, handleClose, isOpen } = useIngredientModal()
+	const buns = ingredients.filter(item => item.type === ProductType.Bun)
+	const sauces = ingredients.filter(item => item.type === ProductType.Sauce)
+	const mains = ingredients.filter(item => item.type === ProductType.Main)
+
+	const bunsRef = useRef<HTMLElement>(null)
+	const saucesRef = useRef<HTMLElement>(null)
+	const mainsRef = useRef<HTMLElement>(null)
+
+	const scrollToSection = (type: tabsItem['value']) => {
+		switch (type) {
+			case ProductType.Bun:
+				bunsRef.current?.scrollIntoView({ behavior: 'smooth' })
+				break
+			case ProductType.Sauce:
+				saucesRef.current?.scrollIntoView({ behavior: 'smooth' })
+				break
+			case ProductType.Main:
+				mainsRef.current?.scrollIntoView({ behavior: 'smooth' })
+				break
+		}
+	}
+	const handleSetActiveTab = (tab: tabsItem) => {
+		setActiveTab(tab)
+		scrollToSection(tab.value)
+	}
+
+	useEffect(() => {
+		const observerCallback = (entries: IntersectionObserverEntry[]) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const type = entry.target.getAttribute('data-type') as ProductType
+					const activeTab = tabsData.find(tab => tab.value === type)
+					if (activeTab) {
+						setActiveTab(activeTab)
+					}
+				}
+			})
+		}
+
+		const observerOptions = {
+			root: null,
+			rootMargin: '10px',
+			threshold: 0.5
+		}
+
+		const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+		if (bunsRef.current) observer.observe(bunsRef.current)
+		if (saucesRef.current) observer.observe(saucesRef.current)
+		if (mainsRef.current) observer.observe(mainsRef.current)
+
+		return () => {
+			if (bunsRef.current) observer.unobserve(bunsRef.current)
+			if (saucesRef.current) observer.unobserve(saucesRef.current)
+			if (mainsRef.current) observer.unobserve(mainsRef.current)
+		}
+	}, [])
 	return (
 		<div className={cl.root}>
 			<div className={clsx(cl.tabs, 'mb-10')}>
 				{tabsData.map(tab => {
 					const { id, value, label } = tab
 					const isActive = activeTab.value === tab.value
-					const onClick = () => setActiveTab(tab)
+					const onClick = () => handleSetActiveTab(tab)
 					return (
 						<Tab active={isActive} value={value} onClick={onClick} key={id}>
 							<p className={clsx('text text_type_main-default', { ['text_color_inactive']: isActive })}>{label}</p>
@@ -53,14 +109,25 @@ export const BurgerIngredients = () => {
 				})}
 			</div>
 			<div className={cl.products}>
-				<section>
-					<h2 className={'mb-6 text text_type_main-medium'}>{activeTab.label}</h2>
-					<ul className={clsx(cl.list, 'pl-4 pr-2 mb-10')}>
-						{sortedItems.map(item => {
-							return <BurgerIngredient ingredient={item} onClick={handleSetActiveIngredient} key={item._id} />
-						})}
-					</ul>
-				</section>
+				{!!buns.length && (
+					<BurgerIngredientsSection items={buns} title={'Булки'} ref={bunsRef} onClick={handleSetActiveIngredient} />
+				)}
+				{!!sauces.length && (
+					<BurgerIngredientsSection
+						items={sauces}
+						title={'Соусы'}
+						ref={saucesRef}
+						onClick={handleSetActiveIngredient}
+					/>
+				)}
+				{!!mains.length && (
+					<BurgerIngredientsSection
+						items={mains}
+						title={'Начинки'}
+						ref={mainsRef}
+						onClick={handleSetActiveIngredient}
+					/>
+				)}
 			</div>
 			<Modal isOpen={isOpen} onClose={handleClose}>
 				<IngredientDetails />
