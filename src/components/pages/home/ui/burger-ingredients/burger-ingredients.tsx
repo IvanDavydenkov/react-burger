@@ -1,8 +1,8 @@
 import cl from './style.module.css'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react'
-import { Modal } from '../../../../modal'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Modal } from '../../../../shared/ui/modal'
 import { IngredientDetails } from '../ingredient-details.tsx/ingredient-details'
 import { useIngredientModal } from '../../hooks/use-ingredient-modal'
 import { useAppSelector } from '../../../../../services'
@@ -35,12 +35,11 @@ export const tabsData: tabsItem[] = [
 export const BurgerIngredients = () => {
 	const ingredients = useAppSelector(state => state.ingredients.items)
 
-	const [activeTab, setActiveTab] = useState<tabsItem>(tabsData[0])
-	const { handleSetActiveIngredient, handleClose, isOpen } = useIngredientModal()
-	const buns = ingredients.filter(item => item.type === ProductType.Bun)
-	const sauces = ingredients.filter(item => item.type === ProductType.Sauce)
-	const mains = ingredients.filter(item => item.type === ProductType.Main)
-
+	const [activeTab, setActiveTab] = useState<tabsItem>(tabsData[1])
+	const { handleClose, isOpen } = useIngredientModal()
+	const buns = useMemo(() => ingredients.filter(item => item.type === ProductType.Bun), [ingredients])
+	const sauces = useMemo(() => ingredients.filter(item => item.type === ProductType.Sauce), [ingredients])
+	const mains = useMemo(() => ingredients.filter(item => item.type === ProductType.Main), [ingredients])
 	const bunsRef = useRef<HTMLElement>(null)
 	const saucesRef = useRef<HTMLElement>(null)
 	const mainsRef = useRef<HTMLElement>(null)
@@ -109,25 +108,9 @@ export const BurgerIngredients = () => {
 				})}
 			</div>
 			<div className={cl.products}>
-				{!!buns.length && (
-					<BurgerIngredientsSection items={buns} title={'Булки'} ref={bunsRef} onClick={handleSetActiveIngredient} />
-				)}
-				{!!sauces.length && (
-					<BurgerIngredientsSection
-						items={sauces}
-						title={'Соусы'}
-						ref={saucesRef}
-						onClick={handleSetActiveIngredient}
-					/>
-				)}
-				{!!mains.length && (
-					<BurgerIngredientsSection
-						items={mains}
-						title={'Начинки'}
-						ref={mainsRef}
-						onClick={handleSetActiveIngredient}
-					/>
-				)}
+				{!!buns.length && <BurgerIngredientsSection items={buns} title={'Булки'} ref={bunsRef} />}
+				{!!sauces.length && <BurgerIngredientsSection items={sauces} title={'Соусы'} ref={saucesRef} />}
+				{!!mains.length && <BurgerIngredientsSection items={mains} title={'Начинки'} ref={mainsRef} />}
 			</div>
 			<Modal isOpen={isOpen} onClose={handleClose}>
 				<IngredientDetails />

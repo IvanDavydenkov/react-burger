@@ -1,8 +1,15 @@
-import { RootLayout } from '../root-layout/root-layout'
+import { RootLayout } from './layouts/root-layout/root-layout'
 import { HomePage } from '../pages/home'
 import { Route, Routes } from 'react-router-dom'
 import { OrderPage } from '../pages/orders'
 import { ProfilePage } from '../pages/profile'
+import { LoginPage } from '../pages/login'
+import { RegisterPage } from '../pages/register'
+import { ForgotPasswordPage } from '../pages/forgot-password'
+import { ResetPasswordPage } from '../pages/reset-password'
+import { PersonalLayout } from './layouts/personal-layout/personal-layout.tsx'
+import { IngredientsSlug } from '../pages/ingredients-slug/ui'
+import { ProtectedRoute } from '../shared/hocks/protected-route.tsx'
 
 export const App = () => {
 	return (
@@ -24,11 +31,67 @@ export const App = () => {
 				}
 			/>
 			<Route
-				path="/profile"
+				path={'/ingredients/:id'}
 				element={
 					<RootLayout>
-						<ProfilePage />
+						<IngredientsSlug />
 					</RootLayout>
+				}
+			/>
+			<Route
+				path="/profile"
+				element={
+					<PersonalLayout>
+						<ProfilePage />
+					</PersonalLayout>
+				}
+			/>
+			<Route
+				path="/profile/orders"
+				element={
+					<PersonalLayout>
+						<OrderPage />
+					</PersonalLayout>
+				}
+			/>
+			<Route
+				path="/login"
+				element={
+					<ProtectedRoute>
+						<RootLayout>
+							<LoginPage />
+						</RootLayout>
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/register"
+				element={
+					<ProtectedRoute>
+						<RootLayout>
+							<RegisterPage />
+						</RootLayout>
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/forgot-password"
+				element={
+					<ProtectedRoute>
+						<RootLayout>
+							<ForgotPasswordPage />
+						</RootLayout>
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/reset-password"
+				element={
+					<ProtectedRoute>
+						<RootLayout>
+							<ResetPasswordPage />
+						</RootLayout>
+					</ProtectedRoute>
 				}
 			/>
 			<Route

@@ -1,0 +1,13 @@
+.root {
+
+    main {
+        padding-top: 120px;
+        max-width: 1240px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        display: flex;
+        gap: 60px;
+    }
+}
