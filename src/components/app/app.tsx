@@ -1,6 +1,6 @@
 import { RootLayout } from './layouts/root-layout/root-layout'
 import { HomePage } from '../pages/home'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { OrderPage } from '../pages/orders'
 import { ProfilePage } from '../pages/profile'
 import { LoginPage } from '../pages/login'
@@ -14,97 +14,105 @@ import { useUser } from '../shared/hooks/use-user.ts'
 
 export const App = () => {
 	useUser()
-
+	const location = useLocation()
+	const { state } = location
 	return (
-		<Routes>
-			<Route
-				path="/"
-				element={
-					<RootLayout>
-						<HomePage />
-					</RootLayout>
-				}
-			/>
-			<Route
-				path="/order"
-				element={
-					<RootLayout>
-						<OrderPage />
-					</RootLayout>
-				}
-			/>
-			<Route
-				path={'/ingredients/:id'}
-				element={
-					<RootLayout>
-						<IngredientsSlug />
-					</RootLayout>
-				}
-			/>
-			<Route
-				path="/profile"
-				element={
-					<PersonalLayout>
-						<ProfilePage />
-					</PersonalLayout>
-				}
-			/>
-			<Route
-				path="/profile/orders"
-				element={
-					<PersonalLayout>
-						<OrderPage />
-					</PersonalLayout>
-				}
-			/>
-			<Route
-				path="/login"
-				element={
-					<ProtectedRoute>
+		<>
+			<Routes location={state?.background || location}>
+				<Route
+					path="/"
+					element={
 						<RootLayout>
-							<LoginPage />
+							<HomePage />
 						</RootLayout>
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/register"
-				element={
-					<ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/order"
+					element={
 						<RootLayout>
-							<RegisterPage />
+							<OrderPage />
 						</RootLayout>
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/forgot-password"
-				element={
-					<ProtectedRoute>
+					}
+				/>
+				<Route
+					path={'/ingredients/:id'}
+					element={
 						<RootLayout>
-							<ForgotPasswordPage />
+							<IngredientsSlug />
 						</RootLayout>
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/reset-password"
-				element={
-					<ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/profile"
+					element={
+						<PersonalLayout>
+							<ProfilePage />
+						</PersonalLayout>
+					}
+				/>
+				<Route
+					path="/profile/orders"
+					element={
+						<PersonalLayout>
+							<OrderPage />
+						</PersonalLayout>
+					}
+				/>
+				<Route
+					path="/login"
+					element={
+						<ProtectedRoute>
+							<RootLayout>
+								<LoginPage />
+							</RootLayout>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/register"
+					element={
+						<ProtectedRoute>
+							<RootLayout>
+								<RegisterPage />
+							</RootLayout>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/forgot-password"
+					element={
+						<ProtectedRoute>
+							<RootLayout>
+								<ForgotPasswordPage />
+							</RootLayout>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/reset-password"
+					element={
+						<ProtectedRoute>
+							<RootLayout>
+								<ResetPasswordPage />
+							</RootLayout>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="*"
+					element={
 						<RootLayout>
-							<ResetPasswordPage />
+							<h1>404 Page Not Found</h1>
 						</RootLayout>
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="*"
-				element={
-					<RootLayout>
-						<h1>404 Page Not Found</h1>
-					</RootLayout>
-				}
-			/>
-		</Routes>
+					}
+				/>
+			</Routes>
+			{state?.background && (
+				<Routes>
+					<Route path="/ingredients/:id" element={<IngredientsSlug />} />
+				</Routes>
+			)}
+		</>
 	)
 }

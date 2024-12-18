@@ -2,7 +2,6 @@ import cl from './style.module.css'
 import { IngredientDetails } from '../../home/ui/ingredient-details.tsx/ingredient-details.tsx'
 import { useIngredients } from '../../../shared/hooks/use-ingredients.ts'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { HomePage } from '../../home'
 import { Modal, useModal } from '../../../shared/ui/modal'
 import { useEffect } from 'react'
 
@@ -23,7 +22,6 @@ export const IngredientsSlug = () => {
 	if (background) {
 		return (
 			<>
-				<HomePage />
 				<Modal isOpen={isOpen} onClose={handleCloseModal}>
 					<IngredientDetails />
 				</Modal>
