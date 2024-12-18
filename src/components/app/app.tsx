@@ -8,10 +8,13 @@ import { RegisterPage } from '../pages/register'
 import { ForgotPasswordPage } from '../pages/forgot-password'
 import { ResetPasswordPage } from '../pages/reset-password'
 import { PersonalLayout } from './layouts/personal-layout/personal-layout.tsx'
-import { IngredientsSlug } from '../pages/ingredients-slug/ui'
+import { IngredientsSlug } from '../pages/ingredients-slug'
 import { ProtectedRoute } from '../shared/hocks/protected-route.tsx'
+import { useUser } from '../shared/hooks/use-user.ts'
 
 export const App = () => {
+	useUser()
+
 	return (
 		<Routes>
 			<Route

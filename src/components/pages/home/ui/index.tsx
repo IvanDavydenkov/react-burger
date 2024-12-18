@@ -7,7 +7,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 export const HomePage = () => {
 	const { isError } = useIngredients()
-
 	if (isError) {
 		return <h1>Произошла ошибка, попробуйте позже</h1>
 	}

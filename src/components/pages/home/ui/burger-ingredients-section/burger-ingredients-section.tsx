@@ -17,7 +17,7 @@ export const BurgerIngredientsSection = forwardRef<HTMLElement, BurgerIngredient
 			<h2 className={'mb-6 text text_type_main-medium'}>{title}</h2>
 			<ul className={'pl-4 pr-2 mb-10'} style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)' }}>
 				{items.map(product => (
-					<Link to={`/ingredients/${product._id}`} state={{ background: location }}>
+					<Link to={`/ingredients/${product._id}`} state={{ background: location }} key={product._id}>
 						<BurgerIngredient ingredient={product} key={product._id} />
 					</Link>
 				))}

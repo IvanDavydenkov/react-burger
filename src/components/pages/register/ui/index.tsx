@@ -13,15 +13,14 @@ export const RegisterPage = () => {
 				control={control}
 				name="name"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
+					//@ts-expect-error тут легаси завимость в либе
 					<Input
-						value={value}
+						value={value || ''}
 						name={'name'}
 						onChange={onChange}
 						placeholder={'Имя'}
 						extraClass={'mb-6'}
 						type={'text'}
-						onPointerEnterCapture={null}
-						onPointerLeaveCapture={null}
 						errorText={error?.message}
 						error={invalid}
 					/>
@@ -32,7 +31,7 @@ export const RegisterPage = () => {
 				name="email"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
 					<EmailInput
-						value={value}
+						value={value || ''}
 						name={'email'}
 						onChange={onChange}
 						extraClass={'mb-6'}
@@ -46,7 +45,7 @@ export const RegisterPage = () => {
 				name="password"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
 					<PasswordInput
-						value={value}
+						value={value || ''}
 						name={'password'}
 						onChange={onChange}
 						extraClass={'mb-6'}

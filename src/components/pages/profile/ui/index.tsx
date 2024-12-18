@@ -14,6 +14,7 @@ export const ProfilePage = () => {
 				control={control}
 				name="name"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
+					//@ts-expect-error тут легаси завимость в либе
 					<Input
 						value={value || ''}
 						name={'name'}
@@ -21,8 +22,6 @@ export const ProfilePage = () => {
 						placeholder={'Имя'}
 						extraClass={'mb-6'}
 						type={'text'}
-						onPointerEnterCapture={null}
-						onPointerLeaveCapture={null}
 						errorText={error?.message}
 						error={invalid}
 					/>

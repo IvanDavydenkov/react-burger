@@ -6,15 +6,16 @@ import { Controller } from 'react-hook-form'
 
 export const LoginPage = () => {
 	const { handleSubmit, control } = useLoginForm()
+
 	return (
-		<form className={cl.form} onSubmit={handleSubmit}>
+		<form className={cl.form} onSubmit={handleSubmit} noValidate={true}>
 			<h1 className={'mb-6 text text_type_main-medium'}>Вход</h1>
 			<Controller
 				control={control}
 				name="email"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
 					<EmailInput
-						value={value}
+						value={value || ''}
 						name={'email'}
 						onChange={onChange}
 						extraClass={'mb-6'}
@@ -28,7 +29,7 @@ export const LoginPage = () => {
 				name="password"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
 					<PasswordInput
-						value={value}
+						value={value || ''}
 						name={'password'}
 						onChange={onChange}
 						extraClass={'mb-6'}

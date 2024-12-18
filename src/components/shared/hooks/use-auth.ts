@@ -3,7 +3,7 @@ import { useLoginMutation, useLogoutMutation, useRegisterMutation } from '../../
 import { deleteCookie } from '../lib/delete-cookie.ts'
 import { useAppSelector } from '../../../services'
 import { getTokenFromResponse } from '../lib/get-token-from-response.ts'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const useAuth = () => {
 	const { setToken, setUser } = useActions()
@@ -12,7 +12,8 @@ export const useAuth = () => {
 	const [register] = useRegisterMutation()
 	const [login] = useLoginMutation()
 	const [logout] = useLogoutMutation()
-
+	const location = useLocation()
+	const prevPath = location?.state?.prev?.pathname
 	const isAuth = token
 
 	const authHandler = (accessToken: string, refreshToken: string) => {
@@ -42,7 +43,7 @@ export const useAuth = () => {
 		if (data?.data) {
 			const [accessToken, refreshToken] = getTokenFromResponse(data.data)
 			authHandler(accessToken, refreshToken)
-			return navigate('/')
+			return navigate(prevPath ? prevPath : '/')
 		}
 		alert('Ошибка попробуйте позже')
 	}

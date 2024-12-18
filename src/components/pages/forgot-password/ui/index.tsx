@@ -23,7 +23,7 @@ export const ForgotPasswordPage = () => {
 				name="email"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
 					<EmailInput
-						value={value}
+						value={value || ''}
 						name={'email'}
 						onChange={onChange}
 						extraClass={'mb-6'}

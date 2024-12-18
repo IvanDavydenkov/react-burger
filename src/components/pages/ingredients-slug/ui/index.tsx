@@ -3,21 +3,21 @@ import { IngredientDetails } from '../../home/ui/ingredient-details.tsx/ingredie
 import { useIngredients } from '../../../shared/hooks/use-ingredients.ts'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { HomePage } from '../../home'
-import { Modal } from '../../../shared/ui/modal'
-import { useEffect, useState } from 'react'
+import { Modal, useModal } from '../../../shared/ui/modal'
+import { useEffect } from 'react'
 
 export const IngredientsSlug = () => {
 	const location = useLocation()
 	const navigate = useNavigate()
-	const [isOpen, setIsOpen] = useState(false) // чтобы анимация плавная была у открытия модалки
+
 	useIngredients()
-
-	const background = location?.state?.background
-
 	const handleCloseModal = () => navigate('/')
 
+	const { isOpen, handleOpen } = useModal(handleCloseModal)
+	const background = location?.state?.background
+
 	useEffect(() => {
-		setIsOpen(true)
+		handleOpen()
 	}, [])
 
 	if (background) {

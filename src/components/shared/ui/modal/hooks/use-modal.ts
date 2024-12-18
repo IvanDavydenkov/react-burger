@@ -1,13 +1,16 @@
 import { useCallback, useEffect, useState } from 'react'
 
-export const useModal = () => {
+export const useModal = (onClose = () => {}) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const handleClose = () => setIsOpen(false)
 	const handleOpen = () => setIsOpen(true)
 
 	const onKeyDown = useCallback(
 		(event: KeyboardEvent) => {
-			if (event.key === 'Escape') handleClose()
+			if (event.key === 'Escape') {
+				handleClose()
+				onClose?.()
+			}
 		},
 		[handleClose]
 	)

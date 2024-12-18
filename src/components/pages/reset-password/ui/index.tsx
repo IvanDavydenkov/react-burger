@@ -21,15 +21,14 @@ export const ResetPasswordPage = () => {
 				control={control}
 				name="code"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
+					//@ts-expect-error тут легаси завимость в либе
 					<Input
-						value={value}
+						value={value || ''}
 						name={'code'}
 						onChange={onChange}
 						placeholder={'Введите код из письма'}
 						extraClass={'mb-6'}
 						type={'text'}
-						onPointerEnterCapture={null}
-						onPointerLeaveCapture={null}
 						errorText={error?.message}
 						error={invalid}
 					/>
@@ -40,7 +39,7 @@ export const ResetPasswordPage = () => {
 				name="password"
 				render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
 					<PasswordInput
-						value={value}
+						value={value || ''}
 						name={'password'}
 						onChange={onChange}
 						extraClass={'mb-6'}
