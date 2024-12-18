@@ -1,0 +1,15 @@
+.menu {
+    width: 320px;
+
+    ul {
+        li {
+            display: flex;
+            align-items: center;
+            height: 64px;
+        }
+
+        button {
+            padding: 0;
+        }
+    }
+}

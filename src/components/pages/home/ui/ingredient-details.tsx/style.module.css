@@ -1,5 +1,8 @@
 .root {
 
+    max-width: 638px;
+    margin-left: auto;
+    margin-right: auto;
 
     .img {
         display: block;

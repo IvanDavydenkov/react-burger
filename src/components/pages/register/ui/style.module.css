@@ -1,0 +1,10 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 180px;
+
+    a {
+        color: #4C4CFF;
+    }
+}

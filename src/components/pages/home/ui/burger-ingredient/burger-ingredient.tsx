@@ -5,8 +5,8 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import { Ingredient } from '../../../../../services/types/server-response.ts'
 import { useDrag } from 'react-dnd'
 
-export const BurgerIngredient = (props: { ingredient: Ingredient } & { onClick: (id: Ingredient) => void }) => {
-	const { ingredient, onClick } = props
+export const BurgerIngredient = (props: { ingredient: Ingredient }) => {
+	const { ingredient } = props
 	const { image, name, price, count } = ingredient
 
 	const [{ isHover }, dragRef] = useDrag({
@@ -16,11 +16,9 @@ export const BurgerIngredient = (props: { ingredient: Ingredient } & { onClick: 
 			isHover: monitor.isDragging()
 		})
 	})
-	const handleClick = () => {
-		onClick(ingredient)
-	}
+
 	return (
-		<li className={clsx('pl-4 pr-4', cl.item, { [cl.item_ondrag]: isHover })} onClick={handleClick} ref={dragRef}>
+		<li className={clsx('pl-4 pr-4', cl.item, { [cl.item_ondrag]: isHover })} ref={dragRef}>
 			<img src={image} className={clsx(cl.img, 'mb-1')} alt={name} />
 			<p className={clsx(cl.price, 'text text_type_digits-default mb-1')}>
 				{price}

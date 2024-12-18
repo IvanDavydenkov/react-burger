@@ -1,7 +1,7 @@
 import cl from './style.module.css'
 import clsx from 'clsx'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useCart } from '../../../../../services/hooks/use-cart.ts'
+import { useCart } from '../../../../shared/hooks/use-cart.ts'
 import { useDrop } from 'react-dnd'
 import { Ingredient, ProductType } from '../../../../../services/types/server-response.ts'
 import { OrderItem } from '../order-item/order-item.tsx'
