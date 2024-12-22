@@ -1,0 +1,1 @@
+export { IngredientsSlug } from './ui/'
