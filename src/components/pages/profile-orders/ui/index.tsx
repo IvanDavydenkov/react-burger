@@ -3,6 +3,7 @@ import { useOrderActions } from '../../../../services/rootActions.ts'
 import { useAppSelector } from '../../../../services'
 import { OrderItem } from '../../../widgets/order-item/order-item.tsx'
 import cl from './style.module.css'
+import { nanoid } from 'nanoid'
 
 export const OrderPage = () => {
 	const { connect, disconnect } = useOrderActions()
@@ -19,6 +20,7 @@ export const OrderPage = () => {
 		<div className={cl.list}>
 			{orders?.map(order => (
 				<OrderItem
+					key={nanoid()}
 					{...order}
 					fullIngriedients={order.ingredients
 						.map(ingredient => ingredients.find(item => item._id === ingredient))

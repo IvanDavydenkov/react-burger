@@ -4,7 +4,6 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { Order } from '../../../services/types/feed.ts'
 import { Ingredient } from '../../../services/types/server-response.ts'
 import { Link, useLocation } from 'react-router-dom'
-import { nanoid } from 'nanoid'
 
 export const OrderItem = (props: Order & { fullIngriedients?: Ingredient[] }) => {
 	const { name, number, createdAt, fullIngriedients = [], _id, status } = props
@@ -34,7 +33,7 @@ export const OrderItem = (props: Order & { fullIngriedients?: Ingredient[] }) =>
 			<div className={clsx('mb-6', cl.bottom)}>
 				<div className={cl.imgs}>
 					{fullIngriedients.map((item, index) => (
-						<img alt={''} key={nanoid()} src={item.image} className={cl.img} style={{ zIndex: 10 - index }} />
+						<img alt={''} key={item._id + index} src={item.image} className={cl.img} style={{ zIndex: 10 - index }} />
 					))}
 				</div>
 				<div className={cl.price}>

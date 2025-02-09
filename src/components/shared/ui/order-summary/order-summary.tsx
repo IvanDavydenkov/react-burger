@@ -2,7 +2,6 @@ import cl from './style.module.css'
 import clsx from 'clsx'
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Ingredient } from '../../../../services/types/server-response.ts'
-import { nanoid } from 'nanoid'
 
 export interface OrderSummaryProps {
 	name: string
@@ -29,12 +28,12 @@ export const OrderSummary = (props: OrderSummaryProps) => {
 			<ul className={clsx('mb-10', cl.list)}>
 				<h2 className={clsx('text text_type_main-medium mb-3')}>Состав:</h2>
 				<div className={cl.wrapper}>
-					{ingredients.map(item => {
+					{ingredients.map((item, index) => {
 						const ingredient = products.find(ingredient => ingredient._id === item)
 						const count = ingredients.filter(item => item === ingredient?._id).length
 						if (!ingredient) return null
 						return (
-							<li key={nanoid()} className={clsx('mb-4', cl.item)}>
+							<li key={ingredient._id + index} className={clsx('mb-4', cl.item)}>
 								<img src={ingredient.image} className={cl.img} alt={''} />
 								<p className={'text text_type_main-small'}>{ingredient.name}</p>
 								<div className={cl.price}>
