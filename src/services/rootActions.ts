@@ -5,8 +5,10 @@ import { cartActions } from './slices/cart.slice.ts'
 import { orderActions } from './slices/order.slice.ts'
 
 import { userActions } from './slices/user.slice.ts'
+import { feedActions } from './slices/feed.slice.ts'
+import { userOrdersActions } from './slices/orders.slice.ts'
 
-const actions = {
+const rootActions = {
 	...ingredientsActions,
 	...cartActions,
 	...orderActions,
@@ -15,5 +17,13 @@ const actions = {
 
 export const useActions = () => {
 	const dispatch = useDispatch()
-	return bindActionCreators(actions, dispatch)
+	return bindActionCreators(rootActions, dispatch)
+}
+export const useFeedActions = () => {
+	const dispatch = useDispatch()
+	return bindActionCreators(feedActions, dispatch)
+}
+export const useOrderActions = () => {
+	const dispatch = useDispatch()
+	return bindActionCreators(userOrdersActions, dispatch)
 }

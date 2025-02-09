@@ -1,7 +1,7 @@
 import { RootLayout } from './layouts/root-layout/root-layout'
 import { HomePage } from '../pages/home'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { OrderPage } from '../pages/orders'
+import { OrderPage } from '../pages/profile-orders'
 import { ProfilePage } from '../pages/profile'
 import { LoginPage } from '../pages/login'
 import { RegisterPage } from '../pages/register'
@@ -11,6 +11,9 @@ import { PersonalLayout } from './layouts/personal-layout/personal-layout.tsx'
 import { IngredientsSlug } from '../pages/ingredients-slug'
 import { ProtectedRoute } from '../shared/hocks/protected-route.tsx'
 import { useUser } from '../shared/hooks/use-user.ts'
+import { FeedPage } from '../pages/feed'
+import { FeedSlugPage } from '../pages/feed-slug'
+import { ProfileOrdersSlug } from '../pages/profile-orders-slug'
 
 export const App = () => {
 	useUser()
@@ -24,14 +27,6 @@ export const App = () => {
 					element={
 						<RootLayout>
 							<HomePage />
-						</RootLayout>
-					}
-				/>
-				<Route
-					path="/order"
-					element={
-						<RootLayout>
-							<OrderPage />
 						</RootLayout>
 					}
 				/>
@@ -59,6 +54,15 @@ export const App = () => {
 						</PersonalLayout>
 					}
 				/>
+				<Route
+					path={'/profile/orders/:id'}
+					element={
+						<PersonalLayout>
+							<ProfileOrdersSlug />
+						</PersonalLayout>
+					}
+				/>
+
 				<Route
 					path="/login"
 					element={
@@ -99,6 +103,23 @@ export const App = () => {
 						</ProtectedRoute>
 					}
 				/>
+
+				<Route
+					path={'/feed'}
+					element={
+						<RootLayout>
+							<FeedPage />
+						</RootLayout>
+					}
+				/>
+				<Route
+					path={'/feed/:id'}
+					element={
+						<RootLayout>
+							<FeedSlugPage />
+						</RootLayout>
+					}
+				/>
 				<Route
 					path="*"
 					element={
@@ -109,9 +130,13 @@ export const App = () => {
 				/>
 			</Routes>
 			{state?.background && (
-				<Routes>
-					<Route path="/ingredients/:id" element={<IngredientsSlug />} />
-				</Routes>
+				<>
+					<Routes>
+						<Route path="/ingredients/:id" element={<IngredientsSlug />} />
+						<Route path={'/profile/orders/:id'} element={<ProfileOrdersSlug />} />
+						<Route path={'/feed/:id'} element={<FeedSlugPage />} />
+					</Routes>
+				</>
 			)}
 		</>
 	)
