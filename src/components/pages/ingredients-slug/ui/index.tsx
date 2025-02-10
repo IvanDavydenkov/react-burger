@@ -8,7 +8,6 @@ import { useEffect } from 'react'
 export const IngredientsSlug = () => {
 	const location = useLocation()
 	const navigate = useNavigate()
-
 	useIngredients()
 	const handleCloseModal = () => navigate('/')
 

@@ -1,0 +1,1 @@
+export { FeedSlugPage } from './ui/'

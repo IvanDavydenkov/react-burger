@@ -22,8 +22,8 @@ export const AppHeader = () => {
 					<li className={'pt-4 pr-5 pb-4 pl-5'}>
 						<NavLink
 							className={({ isActive }) => clsx('text text_type_main-default', { ['text_color_inactive']: !isActive })}
-							to={'/order'}>
-							<BurgerIcon type={currentPath !== '/order' ? 'secondary' : 'primary'} />
+							to={'/feed'}>
+							<BurgerIcon type={currentPath !== '/feed' ? 'secondary' : 'primary'} />
 							Лента заказов
 						</NavLink>
 					</li>
