@@ -1,4 +1,4 @@
-import { Ingredient } from '../types/server-response.ts'
+import { Ingredient } from '../../types/server-response.ts'
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface IngredientsSliceState {
@@ -15,9 +15,6 @@ const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		setCart: (state, action: { payload: Ingredient[] }) => {
-			state.items = action.payload
-		},
 		addItemToCart: (state, action: { payload: Ingredient }) => {
 			state.items = [...state.items, { ...action.payload }]
 		},

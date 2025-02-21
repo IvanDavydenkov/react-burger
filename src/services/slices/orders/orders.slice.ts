@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { FeedStatus, IFeed, Order, TWebSocketActions } from '../types/feed.ts'
+import { FeedStatus, IFeed, Order, TWebSocketActions } from '../../types/feed.ts'
 
-export interface Root {
+export interface Message {
 	success: boolean
 	orders: Order[]
 	total: number
@@ -33,7 +33,7 @@ const orderSlice = createSlice({
 			state.status = FeedStatus.NotInit
 		},
 		sendMessage: () => {},
-		onMessage: (state, action: PayloadAction<Root>) => {
+		onMessage: (state, action: PayloadAction<Message>) => {
 			const { success, total, totalToday, orders } = action.payload
 			state.success = success
 			state.total = total

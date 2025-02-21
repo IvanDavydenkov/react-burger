@@ -42,7 +42,10 @@ export const OrderSummary = () => {
 	})
 
 	return (
-		<ul className={clsx('mt-25 mb-10', cl.summary, { [cl.summary_ondrag]: isHover })} ref={dropTarget}>
+		<ul
+			className={clsx('mt-25 mb-10', cl.summary, { [cl.summary_ondrag]: isHover })}
+			ref={dropTarget}
+			data-cy={'drop-area'}>
 			<li className={cl.item}>
 				<ConstructorElement
 					type={'top'}

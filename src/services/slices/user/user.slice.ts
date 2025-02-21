@@ -8,7 +8,7 @@ interface TUser {
 	token: string | null
 }
 
-const initialState: TUser = {
+export const initialState: TUser = {
 	user: null,
 	token: null
 }
