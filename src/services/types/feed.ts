@@ -1,5 +1,5 @@
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from '@reduxjs/toolkit'
-import { TWSResponse } from '../slices/feed.slice.ts'
+import { Message } from '../slices/feed/feed.slice.ts'
 
 export interface Order {
 	_id: string
@@ -33,6 +33,6 @@ export type TWebSocketActions = {
 	sendMessage: ActionCreatorWithoutPayload
 	onConnect: ActionCreatorWithoutPayload
 	onDisconnect: ActionCreatorWithoutPayload
-	onMessage: ActionCreatorWithPayload<TWSResponse>
+	onMessage: ActionCreatorWithPayload<Message>
 	onError: ActionCreatorWithoutPayload
 }

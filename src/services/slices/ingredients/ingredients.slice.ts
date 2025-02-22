@@ -1,4 +1,4 @@
-import { Ingredient } from '../types/server-response.ts'
+import { Ingredient } from '../../types/server-response.ts'
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface IngredientsSliceState {

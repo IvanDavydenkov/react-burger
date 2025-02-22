@@ -29,9 +29,9 @@ export interface Ingredient {
 	image: string
 	image_mobile: string
 	image_large: string
-	__v: number
+	__v?: number
 	count?: number
-	orderId: string
+	orderId?: string
 }
 
 export interface OrderData {

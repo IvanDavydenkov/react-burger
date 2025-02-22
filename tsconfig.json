@@ -1,7 +1,34 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": [
+      "jest",
+      "node"
+    ],
+    "allowImportingTsExtensions": true
+    // Добавляем типы для Jest и Node.js
+  },
+  "include": [
+    "src",
+    "jest.setup.ts",
+    "jest.config.ts"
+  ],
+  // Включаем тестовые файлы
+  "exclude": [
+    "node_modules"
   ]
 }
