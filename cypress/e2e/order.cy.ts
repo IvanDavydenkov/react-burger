@@ -1,27 +1,39 @@
 import "@4tw/cypress-drag-drop";
 
 describe("Конструктор", () => {
+  const SELECTORS = {
+    draggableBun: "h4:contains('Краторная булка')",
+    draggableSauce: "h4:contains('Соус Spicy-X')",
+    dropArea: '[data-cy="drop-area"]',
+    orderButton: "button:contains('Оформить заказ')",
+    emailInput: '[type="email"]',
+    passwordInput: '[type="password"]',
+    loginButton: "button:contains('Войти')",
+    modalContainer: '[data-cy="modal-container"]',
+    modalHeader: '[data-cy="modal-container"] h2'
+  };
+
   it("should contain h1", () => {
     cy.visit("/");
 
-    const draggable = cy.get("h4").contains("Краторная булка");
-    const extraDraggable = cy.get("h4").contains("Соус Spicy-X");
+    const draggable = cy.get(SELECTORS.draggableBun);
+    const extraDraggable = cy.get(SELECTORS.draggableSauce);
 
-    const target = cy.get('[data-cy="drop-area"]');
+    const target = cy.get(SELECTORS.dropArea);
 
-    draggable.drag('[data-cy="drop-area"]');
-    extraDraggable.drag('[data-cy="drop-area"]');
+    draggable.drag(SELECTORS.dropArea);
+    extraDraggable.drag(SELECTORS.dropArea);
 
     target.should("contain", "Краторная булка");
     target.should("contain", "Соус Spicy-X");
-    cy.get("button").contains("Оформить заказ").click();
+    cy.get(SELECTORS.orderButton).click();
 
     //todo:Проверить что авторизация проходит норм
-    cy.get('[type="email"]').type("testuser@test.ru");
-    cy.get('[type="password"]').type("12345678");
-    cy.get("button").contains("Войти").click();
+    cy.get(SELECTORS.emailInput).type("testuser@test.ru");
+    cy.get(SELECTORS.passwordInput).type("12345678");
+    cy.get(SELECTORS.loginButton).click();
 
-    cy.get("button").contains("Оформить заказ").click();
+    cy.get(SELECTORS.orderButton).click();
 
     cy.intercept("POST", "/api/orders").as("createOrder");
 
@@ -31,12 +43,11 @@ describe("Конструктор", () => {
         expect(interception.response.statusCode).to.eq(200);
       })
       .then(() => {
-        cy.get('[data-cy="modal-container"]').should(
+        cy.get(SELECTORS.modalContainer).should(
           "be.visible",
           "Модальное окно заказа",
         );
-        cy.get('[data-cy="modal-container"]')
-          .find("h2")
+        cy.get(SELECTORS.modalHeader)
           .invoke("text")
           .should("not.be.empty", "Номер заказа");
       });

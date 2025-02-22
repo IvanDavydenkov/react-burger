@@ -47,6 +47,7 @@ describe('Слой интгредиентов', () => {
 		const prevState = ingredientsMocks.find(item => item._id === ingredientWithCountMock._id)
 		const nextState = newState.items.find(item => item._id === ingredientWithCountMock._id)
 
+		console.log(prevState, nextState, ingredientWithCountMock._id)
 		if (!prevState?.count) throw new Error('неожиданность1')
 		if (!nextState?.count) throw new Error('неожиданность2')
 
