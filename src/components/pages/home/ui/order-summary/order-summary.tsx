@@ -8,7 +8,7 @@ import { OrderItem } from '../order-item/order-item.tsx'
 import { nanoid } from 'nanoid'
 import { useActions } from '../../../../../services/rootActions.ts'
 
-const LOADING_IMAGE_PATH = '/src/images/loading.svg'
+import loadingImage from '/src/images/loading.svg' // Import the image
 
 export const OrderSummary = () => {
 	const { cart, addItem, setBun, removeItem } = useCart()
@@ -51,7 +51,8 @@ export const OrderSummary = () => {
 					type={'top'}
 					price={cart?.bun?.price || 0}
 					text={(cart?.bun?.name || 'Перетяните булочку сюда') + ' (верх)'}
-					thumbnail={cart?.bun?.image || LOADING_IMAGE_PATH}
+					// @ts-ignore
+					thumbnail={cart?.bun?.image || loadingImage}
 					isLocked={true}
 				/>
 			</li>
@@ -64,7 +65,8 @@ export const OrderSummary = () => {
 					<ConstructorElement
 						price={0}
 						text={'Наполни меня!'}
-						thumbnail={LOADING_IMAGE_PATH}
+						// @ts-ignore
+						thumbnail={loadingImage}
 						isLocked={true}
 						extraClass={cl.empty}
 					/>
@@ -76,7 +78,8 @@ export const OrderSummary = () => {
 					type={'bottom'}
 					price={cart?.bun?.price || 0}
 					text={(cart?.bun?.name || 'Перетяните булочку сюда') + ' (низ)'}
-					thumbnail={cart?.bun?.image || LOADING_IMAGE_PATH}
+					// @ts-ignore
+					thumbnail={cart?.bun?.image || loadingImage}
 					isLocked={true}
 				/>
 			</li>

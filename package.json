@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "e2e": "npx cypress run",
-    "test": "jest"
+    "test": "jest",
+    "deploy-script": "scp -r ./dist/* moyato@51.250.29.250:/home/moyato/stellar-burger"
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",
